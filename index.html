@@ -1,104 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>Double Chic Hotel - จองห้องพัก</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Double chic Hotel — Booking Courses</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f8f9fa; }
-    header { background:#222; color:white; display:flex; align-items:center; padding:10px 20px; }
-    header img { height:60px; margin-right:15px; }
-    h1 { font-size:22px; margin:0; }
+    :root{
+      --accent:#c04a7b;
+      --muted:#666;
+      --cardBg:#fff;
+      --bodyBg:#f5f5f7;
+      --fontSizeMedium:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
+      background:var(--bodyBg);
+      margin:0;
+      padding:24px;
+      color:#222;
+      font-size:var(--fontSizeMedium);
+    }
 
-    .container { padding:20px; max-width:1000px; margin:auto; }
-    .room { background:white; padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    .room img { width:100%; border-radius:10px; }
-    .room h2 { margin-top:10px; font-size:20px; color:#333; }
-    .room p { margin:5px 0; }
-    .price { font-weight:bold; color:#c00; margin:10px 0; }
-    .btn { display:inline-block; background:#007bff; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; }
-    .btn:hover { background:#0056b3; }
-
-    form { margin-top:30px; background:white; padding:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    form label { display:block; margin:10px 0 5px; }
-    form input, form select { width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px; }
-    form button { background:#28a745; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; }
-    form button:hover { background:#1e7e34; }
+    header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    header h1{font-size:22px;margin:0}
+    .courses{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:var(--cardBg);
+      border-radius:10px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:320px;
+    }
+    .card img{width:100%;height:170px;object-fit:cover;display:block}
+    .card .body{padding:12px;flex:1;display:flex;flex-direction:column}
+    .course-title{font-weight:600;margin-bottom:6px}
+    .course-desc{color:var(--muted);font-size:0.95em;margin-bottom:12px}
+    .course-price{margin-top:auto;font-weight:700}
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .btn{
+      padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600;
+      background:var(--accent);color:#fff;
+    }
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:50}
+    .modal{background:#fff;border-radius:12px;max-width:520px;width:95%;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,0.2)}
+    .modal h2{margin-top:0}
+    .field{margin-bottom:10px;display:flex;flex-direction:column;gap:6px}
+    label{font-size:0.95em}
+    input[type="email"], input[type="date"], select, input[type="text"]{
+      padding:10px;border-radius:8px;border:1px solid #ddd;font-size:1em;
+    }
+    .payment-opts{display:flex;gap:12px;align-items:center}
+    .qr-box, .bank-box{border:1px dashed #ccc;padding:12px;border-radius:8px;background:#fafafa}
+    .qr-img{display:block;margin:0 auto;max-width:220px}
+    .receipt{background:#fff;padding:14px;border-radius:8px;box-shadow:0 6px 14px rgba(0,0,0,0.06);margin-top:12px}
+    .success{color:green;font-weight:700;margin-top:8px}
+    .small{font-size:0.9em;color:var(--muted)}
+    .hidden{display:none}
+    footer{margin-top:18px;font-size:0.9em;color:var(--muted)}
   </style>
 </head>
 <body>
 
 <header>
-  <img src="IMG_2751.jpeg" alt="Double Chic Hotel Logo">
-  <h1>Double Chic Hotel</h1>
+  <img src="https://picsum.photos/seed/dch/60/60" alt="logo" style="border-radius:8px">
+  <div>
+    <h1>Double chic Hotel — Booking คอร์สอาหาร</h1>
+    <div class="small">เลือกคอร์สที่ต้องการแล้วกด "จอง" เพื่อระบุวันและการชำระเงิน</div>
+  </div>
 </header>
 
-<div class="container">
-  <h2>ประเภทห้องพัก</h2>
+<main>
+  <section class="courses" id="coursesContainer">
+    <!-- 5 คอร์สจะถูกแทรกด้วย JS -->
+  </section>
+</main>
 
-  <div class="room">
-    <img src="Standard.png" alt="Standard Room">
-    <h2>Standard Room</h2>
-    <p>เตียงเดี่ยว Queen/King หรือเตียงคู่ Twin • 20-30 ตร.ม.</p>
-    <p class="price">ราคา: 10,000 บาท/คืน</p>
-    <a href="#booking" class="btn">จองห้องนี้</a>
+<!-- Modal: Booking -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button id="closeModal" style="float:right;border:0;background:transparent;font-size:18px;cursor:pointer">✕</button>
+    <h2 id="modalCourseTitle">จองคอร์ส</h2>
+
+    <div class="field">
+      <label for="bookingDate">วันที่รับประทานอาหาร</label>
+      <input id="bookingDate" type="date" required />
+    </div>
+
+    <div class="field">
+      <label for="customerEmail">อีเมลสำหรับรับใบเสร็จ</label>
+      <input id="customerEmail" type="email" placeholder="you@example.com" required />
+    </div>
+
+    <div class="field">
+      <label>ช่องทางการจ่ายเงิน</label>
+      <div class="payment-opts">
+        <label><input type="radio" name="paymentMethod" value="qr" checked /> สแกนคิวอาร์โค้ด</label>
+        <label><input type="radio" name="paymentMethod" value="bank" /> โอนธนาคาร</label>
+      </div>
+    </div>
+
+    <div id="paymentDetails">
+      <!-- QR -->
+      <div id="qrBox" class="qr-box">
+        <div class="small">สแกนเพื่อชำระ (ตัวอย่าง)</div>
+        <img class="qr-img" id="qrImage" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhAQMAAAB2eMaKAAAABlBMVEX///8AAABVwtN+AAABWUlEQVR4nO3SsQ2CQBBF0el0I3qD3qI3YA7sA2E2XgkqfQ0aQm8v5z73blmX5l0Yx0cHBwcHBwcHBwcHBwcHB8b/2QH/8wqWwXkF0rLw8pGZgGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYJ2oN1gGxYP2v0I5r3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7eb8B8h2S6rPoQAAAAAElFTkSuQmCC" alt="QR code placeholder">
+        <div class="small" style="margin-top:8px">กดปุ่ม "ฉันชำระแล้ว" เมื่อชำระเรียบร้อย</div>
+      </div>
+
+      <!-- Bank -->
+      <div id="bankBox" class="bank-box hidden">
+        <div><strong>บัญชีบริษัท: </strong>Double chic Hotel</div>
+        <div><strong>เลขบัญชี: </strong>1234567890</div>
+        <div class="small">สาขา: สำนักงานใหญ่</div>
+        <div class="small" style="margin-top:8px">หลังโอน กรุณากด "ฉันชำระแล้ว"</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn" id="confirmBooking">ฉันชำระแล้ว / ยืนยันการจอง</button>
+      <button class="btn ghost" id="cancelBooking">ยกเลิก</button>
+    </div>
+
+    <div id="bookingResult" class="receipt hidden" aria-live="polite"></div>
+
   </div>
-
-  <div class="room">
-    <img src="huahin-family-room-a01.jpg" alt="Family Room">
-    <h2>Family Room</h2>
-    <p>ห้องสำหรับครอบครัว • 40-50 ตร.ม.</p>
-    <p class="price">ราคา: 12,000 บาท/คืน</p>
-    <a href="#booking" class="btn">จองห้องนี้</a>
-  </div>
-
-  <div class="room">
-    <img src="Deluxe.png" alt="Deluxe Room">
-    <h2>Deluxe Room</h2>
-    <p>เตียง King / เตียงคู่ • 30-40 ตร.ม.</p>
-    <p class="price">ราคา: 13,000บาท/คืน</p>
-    <a href="#booking" class="btn">จองห้องนี้</a>
-  </div>
-
-  <div class="room">
-    <img src="grand-deluxe-room.jpg" alt="Grand Deluxe Room">
-    <h2>Grand Deluxe Room</h2>
-    <p>เตียงคิงไซส์พิเศษ • 30-40 ตร.ม.</p>
-    <p class="price">ราคา: 15,000 บาท/คืน</p>
-    <a href="#booking" class="btn">จองห้องนี้</a>
-  </div>
-
-  <div class="room">
-    <img src="Suit1.png" alt="Suite Room">
-    <h2>Suite Room</h2>
-    <p>เตียงคิงไซส์พิเศษ • 50+ ตร.ม.</p>
-    <p class="price">ราคา: 30,000 บาท/คืน</p>
-    <a href="#booking" class="btn">จองห้องนี้</a>
-  </div>
-
-  <!-- ฟอร์มจอง -->
-  <form id="booking">
-    <h2>จองห้องพัก</h2>
-    <label>เลือกประเภทห้อง</label>
-    <select>
-      <option>Standard Room - 10,000 บาท/คืน</option>
-      <option>Family Room - 12,000 บาท/คืน</option>
-      <option>Deluxe Room - 13,000 บาท/คืน</option>
-      <option>Grand Deluxe Room - 15,000 บาท/คืน</option>
-      <option>Suite Room - 30,000 บาท/คืน</option>
-    </select>
-
-    <label>Check-in Date</label>
-    <input type="date" required>
-
-    <label>Check-out Date</label>
-    <input type="date" required>
-
-    <label>จำนวนผู้เข้าพัก</label>
-    <input type="number" min="1" max="10" value="1">
-
-    <button type="Double chice hotel">Booking now</button>
-  </form>
 </div>
 
-</body>
-</html>
+<footer>
+  <div class="small">ตัวอย่าง widget — หากต้องการให้ระบบส่งอีเมลอัตโนมัติจริง ๆ ต้องมี backend</div>
+</footer>
+
+<script>
+  // ข้อมูล 5 คอร์ส (แก้ชื่อเรียบร้อย)
+  const courses = [
+    { id: 'course1', title: 'Thai Course (THB 1,200)', desc:'Authentic Thai flavors', price:1200, img:'thai_course.jpg' },
+    { id: 'course2', title: 'Chinese Course (THB 1,500)', desc:'Traditional Chinese cuisine', price:1500, img:'chinese_course.jpg' },
+    { id: 'course3', title: 'American Course (THB 1,800)', desc:'Classic American dining', price:1800, img:'american_course.jpg' },
+    { id: 'course4', title: 'French Course (THB 2,200)', desc:'Elegant French gourmet', price:2200, img:'french_course.jpg' },
+    { id: 'course5', title: 'Omakase Course (THB 7,500)', desc:'Premium Japanese Omakase', price:7500, img:'omakase_course.jpg' },
+  ];
+
+  const container = document.getElementById('coursesContainer');
+  courses.forEach(c=>{
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${c.img}" alt="${c.title}">
+      <div class="body">
+        <div class="course-title">${c.title}</div>
+        <div class="course-desc">${c.desc}</div>
+        <div class="course-price">ราคา: ฿${c.price.toLocaleString()}</div>
+        <div class="actions">
+          <button class="btn" data-id="${c.id}" data-title="${c.title}" data-price="${c.price}">จอง</button>
+          <button class="btn ghost" onclick="window.open('#','_self')">ดูรายละเอียด</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  // Modal logic
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalTitle = document.getElementById('modalCourseTitle');
+  const bookingDate = document.getElementById('bookingDate');
+  const customerEmail = document.getElementById('customerEmail');
+  const qrBox = document.getElementById('qrBox');
+  const bankBox = document.getElementById('bankBox');
+  const bookingResult = document.getElementById('bookingResult');
+
+  let currentCourse = null;
+
+  document.querySelectorAll('.card .btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      currentCourse = courses.find(x=>x.id===btn.dataset.id);
+      openModal(currentCourse);
+    });
+  });
+
+  function openModal(course){
+    modalTitle.textContent =
