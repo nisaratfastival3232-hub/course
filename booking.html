@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จองคอร์สอาหาร Double Chic Hotel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>จองคอร์สอาหาร Double Chic Hotel</h1>
+
+        <section id="course-selection">
+            <h2>1. เลือกคอร์สอาหาร (5 คอร์ส)</h2>
+            <div class="course-list">
+                
+                <div class="course-card" data-course="Thai">
+                    <div class="course-image">
+                        <img src="thai_course.jpg" alt="รูปภาพคอร์สอาหารไทย">
+                    </div>
+                    <h3>Thai Course</h3>
+                    <p>สัมผัสรสชาติจัดจ้านแบบไทยดั้งเดิม</p>
+                    <button onclick="selectCourse('Thai')">จองคอร์ส Thai</button>
+                </div>
+
+                <div class="course-card" data-course="American">
+                    <div class="course-image">
+                        <img src="american_course.jpg" alt="รูปภาพคอร์สอาหารอเมริกัน">
+                    </div>
+                    <h3>American Course</h3>
+                    <p>เมนูคลาสสิกสไตล์อเมริกัน</p>
+                    <button onclick="selectCourse('American')">จองคอร์ส American</button>
+                </div>
+
+                <div class="course-card" data-course="Chinese">
+                    <div class="course-image">
+                        <img src="chinese_course.jpg" alt="รูปภาพคอร์สอาหารจีน">
+                    </div>
+                    <h3>Chinese Course</h3>
+                    <p>อาหารจีนตำรับโบราณรสเลิศ</p>
+                    <button onclick="selectCourse('Chinese')">จองคอร์ส Chinese</button>
+                </div>
+
+                <div class="course-card" data-course="French">
+                    <div class="course-image">
+                        <img src="french_course.jpg" alt="รูปภาพคอร์สอาหารฝรั่งเศส">
+                    </div>
+                    <h3>French Course</h3>
+                    <p>ศิลปะแห่งการทำอาหารฝรั่งเศส</p>
+                    <button onclick="selectCourse('French')">จองคอร์ส French</button>
+                </div>
+
+                <div class="course-card" data-course="Omakase">
+                    <div class="course-image">
+                        <img src="omakase_course.jpg" alt="รูปภาพคอร์ส Omakase">
+                    </div>
+                    <h3>Omakase Course</h3>
+                    <p>ประสบการณ์สุดพิเศษจากเชฟ</p>
+                    <button onclick="selectCourse('Omakase')">จองคอร์ส Omakase</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking-details" style="display:none;">
+            <h2>2. ยืนยันการจองและชำระเงิน</h2>
+            <form id="booking-form">
+                <p>คอร์สที่เลือก: <strong id="selected-course-display"></strong></p>
+
+                <div class="form-group">
+                    <label for="dining-date">เลือกวันมารับประทาน:</label>
+                    <input type="date" id="dining-date" name="dining-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">อีเมล (ใช้เป็นช่องทางการยืนยันการจอง):</label>
+                    <input type="email" id="email" name="email" placeholder="youremail@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>3. เลือกช่องทางการชำระเงิน:</label><br>
+                    
+                    <input type="radio" id="payment-qr" name="payment-method" value="QR_Code" required>
+                    <label for="payment-qr">1. QR Code</label><br>
+
+                    <input type="radio" id="payment-bank" name="payment-method" value="Bank_Transfer">
+                    <label for="payment-bank">2. โอนเงินผ่านธนาคาร</label>
+                    
+                    <div id="bank-info" class="payment-info" style="display:none; margin-top: 10px; padding: 10px; border: 1px solid #ccc;">
+                        <strong>ธนาคาร:</strong> Double Chic Hotel<br>
+                        <strong>เลขที่บัญชี:</strong> 1234567890
+                    </div>
+
+                    <div id="qr-info" class="payment-info" style="display:none; margin-top: 10px; padding: 10px; border: 1px solid #ccc;">
+                        **โปรดสแกน QR Code เพื่อชำระเงิน**<br>
+                        <img src="qr_code_placeholder.png" alt="QR Code สำหรับชำระเงิน" style="max-width: 150px; height: auto; margin-top: 10px;">
+                    </div>
+                </div>
+
+                <button type="submit" class="confirm-button">ยืนยันการจอง</button>
+            </form>
+        </section>
+
+        <section id="confirmation" style="display:none;">
+            <h2>การจองเสร็จสมบูรณ์!</h2>
+            <p>ขอบคุณสำหรับการจองคอร์สอาหาร</p>
+            <p>รายละเอียดการจองจะถูกส่งไปยังอีเมลของคุณ: <strong id="confirmed-email"></strong></p>
+            <p>คอร์ส: <strong id="confirmed-course"></strong></p>
+            <p>วันที่มารับประทาน: <strong id="confirmed-date"></strong></p>
+            <p>ช่องทางชำระเงิน: <strong id="confirmed-payment"></strong></p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

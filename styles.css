@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #a0522d; /* สีน้ำตาลสำหรับหัวข้อ */
+}
+
+/* ส่วนแสดงคอร์สอาหาร */
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.course-card {
+    background: #fff8e1; /* สีครีม-เหลืองอ่อน */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    width: 180px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.course-image {
+    height: 100px;
+    background-color: #f0e68c; /* สีเหลืองอ่อนสำหรับแทนรูปภาพ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.course-card h3 {
+    margin-top: 0;
+    color: #4a4a4a;
+}
+
+.course-card button {
+    background-color: #a0522d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.course-card button:hover {
+    background-color: #8b4513;
+}
+
+/* ส่วนฟอร์มการจอง */
+#booking-details, #confirmation {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #f0e68c;
+    border-radius: 8px;
+    background-color: #fffaf0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="date"],
+.form-group input[type="email"] {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.confirm-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #3cb371; /* สีเขียว */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.confirm-button:hover {
+    background-color: #2e8b57;
+}
+
+.payment-info {
+    background-color: #fff;
+}
